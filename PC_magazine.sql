@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS user(
   id integer PRIMARY KEY AUTOINCREMENT,
   username TEXT,
+  password TEXT,
   card TEXT
   );
 CREATE TABLE IF NOT EXISTS online_magazine(
@@ -8,43 +9,71 @@ CREATE TABLE IF NOT EXISTS online_magazine(
   title TEXT,
   short_name TEXT
   ); 
-CREATE TABLE IF NOT EXISTS product(
-  id integer PRIMARY KEY AUTOINCREMENT,
-  title TEXT,
+CREATE TABLE IF NOT EXISTS product_type(
+  product_type TEXT PRIMARY KEY,
   note TEXT
   ); 
+CREATE TABLE IF NOT EXISTS product(
+  id integer PRIMARY KEY AUTOINCREMENT,
+  left_in_stock integer,
+  note TEXT,
+  FOREIGN KEY (id) REFERENCES product_type(product_type)
+  ); 
+CREATE TABLE IF NOT EXISTS manager(
+  id integer PRIMARY KEY AUTOINCREMENT,
+  user_id integer,
+  FOREIGN KEY (user_id) REFERENCES user(id)   
+  );
 CREATE TABLE IF NOT EXISTS sale_product(
   transaction_code integer PRIMARY KEY AUTOINCREMENT,
   online_magazine_id INT,
-  product_id INT,
-  user_id INT,
+  user_id integer,
+  product_id integer,
+  manager_id integer,
   date_and_time_of_receipt date,
   title TEXT,
   FOREIGN KEY (online_magazine_id) REFERENCES online_magazine(id),
   FOREIGN KEY (product_id) references product(id),
-  FOREIGN KEY (user_id) references user(id)
+  FOREIGN KEY (user_id) references manager(user_id),
+  FOREIGN KEY (manager_id) references manager(id)
   ); 
-INSERT INTO user (username,card) VALUES ('Санчес','123-404-516');
-INSERT INTO user (username,card) VALUES ('Манчес','123-404-712');
-INSERT INTO user (username,card) VALUES ('Куканчес','123-321-521');
-INSERT INTO user (username,card) VALUES ('Жижанчес','123-612-866');
-INSERT INTO user (username,card) VALUES ('Жужанчес','123-512-311');
+INSERT INTO user (username,password,card) VALUES ('Санчес','myparol3213','123-404-516');
+INSERT INTO user (username,password,card) VALUES ('Манчес','mynjfdsjal4213','123-404-712');
+INSERT INTO user (username,password,card) VALUES ('Куканчес','myparo4214213','123-321-521');
+INSERT INTO user (username,password,card) VALUES ('Жижанчес','mypa61fas23','123-612-866');
+INSERT INTO user (username,password,card) VALUES ('Жужанчес','myfkhgsa6213','123-512-311');
+INSERT INTO user (username,password,card) VALUES ('Шишканчес','123321','213-412-512');
 
 INSERT INTO online_magazine (title,short_name) VALUES ('SanchoPC - Обновим твой PC!','SanchoPC');
 
-INSERT INTO product (title) VALUES ('Видеокарта');
-INSERT INTO product (title) VALUES ('Процессор');
-INSERT INTO product (title,note) VALUES ('Материнка','Материнская плата');
-INSERT INTO product (title) VALUES ('Компьютеры');
-INSERT INTO product (title) VALUES ('Мониторы');
+INSERT INTO product_type (product_type) VALUES ('Видеокарта');
+INSERT INTO product_type (product_type) VALUES ('Процессор');
+INSERT INTO product_type (product_type,note) VALUES ('Материнка','Материнская плата');
+INSERT INTO product_type (product_type) VALUES ('Компьютеры');
+INSERT INTO product_type (product_type) VALUES ('Мониторы');
 
-INSERT INTO sale_product (online_magazine_id,product_id,user_id,date_and_time_of_receipt) VALUES (1,2,1,'19-11-2022');
-INSERT INTO sale_product (online_magazine_id,product_id,user_id,date_and_time_of_receipt) VALUES (1,5,5,'04-04-2020');
-INSERT INTO sale_product (online_magazine_id,product_id,user_id,date_and_time_of_receipt) VALUES (1,6,5,'15-02-2023');
-INSERT INTO sale_product (online_magazine_id,product_id,user_id,date_and_time_of_receipt) VALUES (1,1,4,'31-01-2021');
-INSERT INTO sale_product (online_magazine_id,product_id,user_id,date_and_time_of_receipt,title) VALUES (1,3,4,'09-12-2022','Материнская плата');
+INSERT INTO product (left_in_stock) VALUES (3);
+INSERT INTO product (left_in_stock) VALUES (34);
+INSERT INTO product (left_in_stock) VALUES (15);
+INSERT INTO product (left_in_stock) VALUES (8);
+INSERT INTO product (left_in_stock) VALUES (154);
+
+INSERT INTO manager (user_id) VALUES (1);
+INSERT INTO manager (user_id) VALUES (6);
+INSERT INTO manager (user_id) VALUES (5);
+INSERT INTO manager (user_id) VALUES (3);
+INSERT INTO manager (user_id) VALUES (2);
+INSERT INTO manager (user_id) VALUES (4);
+
+INSERT INTO sale_product (online_magazine_id,user_id,product_id,manager_id,date_and_time_of_receipt) VALUES (1,1,1,1,'19-11-2022');
+INSERT INTO sale_product (online_magazine_id,user_id,product_id,manager_id,date_and_time_of_receipt) VALUES (1,5,5,3,'04-04-2020');
+INSERT INTO sale_product (online_magazine_id,user_id,product_id,manager_id,date_and_time_of_receipt) VALUES (1,3,4,4,'15-02-2023');
+INSERT INTO sale_product (online_magazine_id,user_id,product_id,manager_id,date_and_time_of_receipt) VALUES (1,2,2,5,'31-01-2021');
+INSERT INTO sale_product (online_magazine_id,user_id,product_id,manager_id,date_and_time_of_receipt) VALUES (1,4,3,6,'09-12-2022');
 
 SELECT * FROM user;
 SELECT * FROM online_magazine;
+SELECT * FROM product_type;
 SELECT * FROM product;
+SELECT * FROM manager;
 SELECT * FROM sale_product;
