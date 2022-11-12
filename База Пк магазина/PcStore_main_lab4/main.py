@@ -1,7 +1,14 @@
-from sql import check_base, create_base
+from parsing.create_base.sql import check_base, create_base
 BASE_PATH = 'PcStore.db'
 def check_create_base():
     if not check_base(BASE_PATH):
-        create_base(BASE_PATH, 'sql/base.sql')
+        print("БД не существует")
+        print("Наполняем БД...")
+        create_base(BASE_PATH, "parsing/create_base/sql/base.sql")
+#         return True
+    else:
+        print("БД существует")
+#         return False
+    
 if __name__ == '__main__':
     check_create_base()
