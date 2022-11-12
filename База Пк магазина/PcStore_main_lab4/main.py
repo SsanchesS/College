@@ -4,7 +4,7 @@ def check_create_base():
     if not check_base(BASE_PATH):
         print("БД не существует")
         print("Наполняем БД...")
-        create_base(BASE_PATH, "parsing/create_base/sql/base.sql")
+        create_base(BASE_PATH, "sql/base.sql")
 #         return True
     else:
         print("БД существует")
