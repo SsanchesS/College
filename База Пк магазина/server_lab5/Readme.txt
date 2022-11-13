@@ -6,4 +6,4 @@ pip install uvicorn
 **
 
 api.docx - в будущем сделаю
-routers - не доделан, для примера пока только users
+routers и resolvers - не доделаны, для примера пока только users
