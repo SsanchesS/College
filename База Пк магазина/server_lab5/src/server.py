@@ -9,6 +9,8 @@ from routers.sale_product import sale_product_router
 
 from sql_base.base import base_worker
 
+#https://metanit.com/python/fastapi/2.3.php
+
 BASE_PATH = 'PcStore.db'
 base_worker.set_base_path(BASE_PATH)
 
