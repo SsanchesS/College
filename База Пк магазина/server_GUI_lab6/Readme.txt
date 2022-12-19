@@ -6,7 +6,3 @@ pip install uvicorn
 
 Для запуска GUI:
 Открыть src/client и запустить mainwindow.py
-
-**
-
-api.docx - в будущем сделаю
